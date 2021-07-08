@@ -25,8 +25,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
         android:ems="10"
-        android:inputType="none"
-        android:text="Description" />
+        android:hint="Description"
+        android:inputType="none" />
 
     <Button
         android:id="@+id/btnUpload"
@@ -39,12 +39,11 @@
 
     <ImageView
         android:id="@+id/ivUpload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_below="@+id/btnUpload"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:visibility="invisible"
+        android:layout_marginTop="5dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
@@ -53,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivUpload"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="0dp"
         android:text="Submit" />
 </RelativeLayout>
