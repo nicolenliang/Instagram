@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
     public String photoFileName = "photo.jpg";
     EditText etDescription;
     ImageView ivUpload;
-    Button btnLogout, btnUpload, btnSubmit;
+    Button btnLogout, btnUpload, btnSubmit, btnFeed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
         btnLogout = findViewById(R.id.btnLogout);
         btnUpload = findViewById(R.id.btnUpload);
         btnSubmit = findViewById(R.id.btnSubmit);
+        btnFeed = findViewById(R.id.btnFeed);
         btnLogout.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -91,6 +92,15 @@ public class MainActivity extends AppCompatActivity
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
+            }
+        });
+        btnFeed.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(MainActivity.this, FeedActivity.class);
+                startActivity(i);
             }
         });
     }
