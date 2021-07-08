@@ -1,6 +1,7 @@
 package com.example.instagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -61,7 +64,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>
     }
 
     // subclass ViewHolder holds item_post layout
-    public class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         TextView tvUsername, tvDescription;
         ImageView ivImage;
@@ -72,6 +75,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivImage = itemView.findViewById(R.id.ivImage);
+
+            // click on post to open new activity and view details
+            itemView.setOnClickListener(this);
         }
 
         // bind post data to view elements
@@ -84,6 +90,21 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             else
                 ivImage.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onClick(View v)
+        {
+            // grab post position; check nullity; wrap with Parcel; pass into activity
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION)
+            {
+                Post post = posts.get(position);
+                Intent i = new Intent(context, PostDetailsActivity.class);
+                i.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                context.startActivity(i);
+            }
+
         }
     }
 }
