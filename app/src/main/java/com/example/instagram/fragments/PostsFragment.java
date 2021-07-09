@@ -20,6 +20,7 @@ import com.example.instagram.PostsAdapter;
 import com.example.instagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
@@ -28,10 +29,10 @@ import java.util.List;
 public class PostsFragment extends Fragment
 {
     public static final String TAG = "PostsFragment";
-    RecyclerView rvPosts;
+    protected RecyclerView rvPosts;
     protected PostsAdapter postsAdapter;
     protected List<Post> allPosts;
-    private SwipeRefreshLayout swipeContainer;
+    protected SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
 
     public PostsFragment()
@@ -77,22 +78,50 @@ public class PostsFragment extends Fragment
                 postsAdapter.clear();
                 queryPosts();
                 postsAdapter.notifyDataSetChanged();
+                scrollListener.resetState();
                 swipeContainer.setRefreshing(false); // signals that refreshing has finished
             }
         });
 
         // set up infinite scroll listener
-        /*scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager)
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager)
         {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view)
             {
-                // ??? WAT DO HERE
+                Log.i(TAG, "onLoadMore entered");
+                loadMorePosts(page);
             }
         };
         rvPosts.addOnScrollListener(scrollListener); // adding endless scroll listener to our RV
-*/
+
     }
+
+    private void loadMorePosts(int page)
+    {
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        query.include(Post.KEY_USER);
+        query.setLimit(20);
+        query.addDescendingOrder("createdAt");
+        query.setSkip(allPosts.size());
+        query.findInBackground(new FindCallback<Post>()
+        {
+            @Override
+            public void done(List<Post> objects, ParseException e)
+            {
+                if (e != null)
+                {
+                    Log.e(TAG, "loadMorePosts issue in loading posts: " + e.getLocalizedMessage());
+                    return;
+                }
+                for (Post post : objects)
+                    Log.i(TAG, "Post: " + post.getDescription() + "; Username: " + post.getUser().getUsername());
+                allPosts.addAll(objects);
+                postsAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
 
     protected void queryPosts()
     {
