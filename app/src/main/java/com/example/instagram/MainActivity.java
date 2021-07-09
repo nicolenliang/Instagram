@@ -3,6 +3,7 @@ package com.example.instagram;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -18,6 +19,7 @@ import android.os.Environment;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +32,7 @@ import com.example.instagram.fragments.PostsFragment;
 import com.example.instagram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
+import com.parse.LogOutCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG = "MainActivity";
     BottomNavigationView bottomNavigation;
     final FragmentManager fragmentManager = getSupportFragmentManager();
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -79,5 +83,35 @@ public class MainActivity extends AppCompatActivity
         });
         // set default screen for BNV
         bottomNavigation.setSelectedItemId(R.id.action_home);
+
+        toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        if (R.id.logout == item.getItemId()) // item pressed equals logout item
+        {
+            Log.i(TAG, "onOptionsItemSelected success");
+            ParseUser.logOutInBackground(new LogOutCallback()
+            {
+                @Override
+                public void done(ParseException e)
+                {
+                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(i);
+                    finish(); // user cannot navigate back to screen
+                }
+            });
+        }
+        return true;
     }
 }
