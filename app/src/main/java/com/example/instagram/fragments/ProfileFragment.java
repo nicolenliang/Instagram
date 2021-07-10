@@ -32,7 +32,7 @@ public class ProfileFragment extends PostsFragment
 {
     private RecyclerView rvPosts;
     private PostsAdapter postsAdapter;
-    private List<Post> allPosts;
+    protected List<Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
     ImageView ivProfile;
     TextView tvUsername, tvPostCount;
@@ -43,13 +43,12 @@ public class ProfileFragment extends PostsFragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         rvPosts = view.findViewById(R.id.rvProfilePosts);
         allPosts = new ArrayList<>();
+        swipeContainer = view.findViewById(R.id.swipeContainer);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
 
         // 1. create layout for one row of RV:
@@ -62,6 +61,8 @@ public class ProfileFragment extends PostsFragment
         rvPosts.setLayoutManager(gridLayoutManager);
         queryPosts();
 
+        Log.i(TAG, "queryPosts finished; allPosts size: " + allPosts.size());
+
         ivProfile = view.findViewById(R.id.ivProfile);
         ParseFile profile = ParseUser.getCurrentUser().getParseFile("profilepic");
         if (profile != null)
@@ -69,10 +70,8 @@ public class ProfileFragment extends PostsFragment
         tvUsername = view.findViewById(R.id.tvUsername);
         tvUsername.setText(ParseUser.getCurrentUser().getUsername());
         tvPostCount = view.findViewById(R.id.tvPostCount);
-        tvPostCount.setText(allPosts.size() + " posts");
 
-        /*swipeContainer = super.swipeContainer;
-        this.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
         {
             @Override
             public void onRefresh()
@@ -81,7 +80,7 @@ public class ProfileFragment extends PostsFragment
                 queryPosts();
                 swipeContainer.setRefreshing(false); // signals that refreshing has finished
             }
-        });*/
+        });
     }
 
     @Override
@@ -106,6 +105,8 @@ public class ProfileFragment extends PostsFragment
                     Log.i(TAG, "Post: " + post.getDescription() + "; Username: " + post.getUser().getUsername());
                 allPosts.clear();
                 allPosts.addAll(objects);
+                Log.i(TAG, "queryPost allPosts size: " + allPosts.size());
+                tvPostCount.setText(allPosts.size() + " posts");
                 postsAdapter.notifyDataSetChanged();
             }
         });
