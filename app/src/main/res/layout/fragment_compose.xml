@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ComposeFragment">
-
-    <Button
-        android:id="@+id/btnLogout"
-        style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:text="log out" />
 
     <EditText
         android:id="@+id/etDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="65dp"
+        android:layout_toEndOf="@+id/ivUpload"
         android:ems="10"
-        android:hint="Description"
+        android:hint="Write a caption..."
         android:inputType="none" />
 
     <Button
         android:id="@+id/btnUpload"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etDescription"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/ivUpload"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         android:text="Upload Image" />
 
     <ImageView
         android:id="@+id/ivUpload"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/btnUpload"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="65dp"
+        android:background="#FFFFFF"
+        android:visibility="visible"
+        app:srcCompat="@android:drawable/screen_background_light"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/btnSubmit"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivUpload"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="160dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="0dp"
-        android:text="Submit" />
+        android:layout_marginEnd="11dp"
+        android:layout_toEndOf="@+id/btnUpload"
+        android:text="Submit"
+        android:textColor="@color/link_blue" />
 
 </RelativeLayout>
