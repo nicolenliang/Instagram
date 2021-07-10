@@ -60,7 +60,7 @@ public class PostsFragment extends Fragment
         // 1. create layout for one row of RV:
         //    see item_post.xml
         // 2. create adapter
-        postsAdapter = new PostsAdapter(getContext(), allPosts);
+        postsAdapter = new PostsAdapter(getContext(), allPosts, 1);
         // 3. create the data source?:
         //    see queryPosts()
         // 4. set adapter on the recycler view
@@ -77,7 +77,6 @@ public class PostsFragment extends Fragment
             {
                 postsAdapter.clear();
                 queryPosts();
-                postsAdapter.notifyDataSetChanged();
                 scrollListener.resetState();
                 swipeContainer.setRefreshing(false); // signals that refreshing has finished
             }
@@ -121,7 +120,6 @@ public class PostsFragment extends Fragment
             }
         });
     }
-
 
     protected void queryPosts()
     {
