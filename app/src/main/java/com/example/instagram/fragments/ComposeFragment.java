@@ -25,21 +25,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.instagram.BitmapScaler;
-import com.example.instagram.FeedActivity;
-import com.example.instagram.LoginActivity;
-import com.example.instagram.MainActivity;
 import com.example.instagram.Post;
 import com.example.instagram.R;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -51,7 +45,7 @@ public class ComposeFragment extends Fragment
     public String photoFileName = "photo.jpg";
     EditText etDescription;
     ImageView ivUpload;
-    Button btnLogout, btnUpload, btnSubmit;
+    Button btnUpload, btnSubmit;
 
     public ComposeFragment()
     {
@@ -74,21 +68,9 @@ public class ComposeFragment extends Fragment
 
         etDescription = view.findViewById(R.id.etDescription);
         ivUpload = view.findViewById(R.id.ivUpload);
-        btnLogout = view.findViewById(R.id.btnLogout);
         btnUpload = view.findViewById(R.id.btnUpload);
         btnSubmit = view.findViewById(R.id.btnSubmit);
 
-        btnLogout.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ParseUser.logOut();
-                Intent i = new Intent(getContext(), LoginActivity.class);
-                startActivity(i);
-                getActivity().finish();
-            }
-        });
         //queryPosts();
         btnUpload.setOnClickListener(new View.OnClickListener()
         {
@@ -121,7 +103,8 @@ public class ComposeFragment extends Fragment
         });
     }
 
-    public Bitmap rotateBitmapOrientation(String photoFilePath) {
+    public Bitmap rotateBitmapOrientation(String photoFilePath)
+    {
         // Create and configure BitmapFactory
         BitmapFactory.Options bounds = new BitmapFactory.Options();
         bounds.inJustDecodeBounds = true;
@@ -180,7 +163,7 @@ public class ComposeFragment extends Fragment
             if (resultCode == RESULT_OK) // everything work gud
             {
                 // by this point we have the camera photo on disk
-                // rotate and them store image
+                // rotate and then store image
                 Bitmap takenImage = rotateBitmapOrientation(photoFile.getPath());
                 //Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getPath());
                 // RESIZE BITMAP, see section below
