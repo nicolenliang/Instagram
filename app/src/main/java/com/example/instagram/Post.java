@@ -7,7 +7,9 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @ParseClassName("Post")
 public class Post extends ParseObject
@@ -15,6 +17,9 @@ public class Post extends ParseObject
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
+    public static final String KEY_CREATED_AT = "createdAt";
+    public static final String KEY_LIKES = "numLikes";
+    public static final String KEY_COMMENTS = "numComments";
 
     public String getDescription() { return getString(KEY_DESCRIPTION); }
     public void setDescription(String description) { put(KEY_DESCRIPTION, description); }
@@ -25,7 +30,13 @@ public class Post extends ParseObject
     public ParseUser getUser() { return getParseUser(KEY_USER); }
     public void setUser(ParseUser parseUser) { put(KEY_USER, parseUser); }
 
-    public String getTime() { return calculateTimeAgo(getCreatedAt()); }
+    public Date getTime() { return getDate(KEY_CREATED_AT); }
+
+    public int getLikes() { return getInt(KEY_LIKES); }
+    public void setLikes(int likes) { put(KEY_LIKES, likes); }
+
+    public int getComments() { return getInt(KEY_COMMENTS); }
+    public void setComments(int comments) { put(KEY_COMMENTS, comments); }
 
     public static String calculateTimeAgo(Date createdAt)
     {
