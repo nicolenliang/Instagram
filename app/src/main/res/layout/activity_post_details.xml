@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -10,41 +11,138 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="65dp"
+        app:srcCompat="@drawable/ic_baseline_person" />
+
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/ivProfile"
         android:fontFamily="sans-serif-medium"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="14sp"
         tools:text="username" />
 
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvUsername"
-        android:layout_marginTop="0dp"
+        android:layout_below="@+id/ivProfile"
+        android:layout_marginTop="10dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivImage"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        tools:text="description beep boop" />
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ibLike"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ufi_heart" />
+
+        <ImageButton
+            android:id="@+id/ibComment"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/ibLike"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ufi_comment" />
+
+        <ImageButton
+            android:id="@+id/ibDm"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toRightOf="@id/ibComment"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/direct" />
+
+        <ImageButton
+            android:id="@+id/ibSave"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="5dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ufi_save_icon"
+            app:tint="#000000" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLikes"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tvUsernameCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="sans-serif-medium"
+            tools:text="username" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/tvUsernameCaption"
+            tools:text="description beep boop" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tvTimestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvDescription"
+        android:layout_below="@+id/relativeLayoutCaption"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="sans-serif-light"
+        android:textSize="12sp"
         tools:text="6 days ago" />
+
+    <TextView
+        android:id="@+id/tvLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="sans-serif-black"
+        tools:text="40 likes" />
 </RelativeLayout>
